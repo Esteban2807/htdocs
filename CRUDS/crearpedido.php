@@ -94,15 +94,15 @@ if (isset($_POST['submit'])) {
         <form method="post" action="crearpedido.php" class="mt-4 border border-gray-500 justify-center items-center w-96  flex flex-col gap-2">
             <label for="id" class="mt-2">ID: <input class="mt-2 inline border border-[#000]" type="text" name="id" id="id" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['id']) ? $_SESSION['old_data']['id'] : ''); ?>"></label>
 
-            <label for="cliente_id" class="mt-2">Cliente ID: <input type="text" class="border border-[#000] name="cliente_id" id="cliente_id" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['cliente_id']) ? $_SESSION['old_data']['cliente_id'] : ''); ?>"></label>
+            <label for="cliente_id" class="mt-2">Cliente ID: <input type="text" class="border border-[#000]" name="cliente_id" id="cliente_id" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['cliente_id']) ? $_SESSION['old_data']['cliente_id'] : ''); ?>"></label>
 
-            <label for="producto" class="mt-2">Producto: <input type="text" class="border border-[#000] name="producto" id="producto" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['producto']) ? $_SESSION['old_data']['producto'] : ''); ?>"></label>
+            <label for="producto" class="mt-2">Producto: <input type="text" class="border border-[#000]" name="producto" id="producto" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['producto']) ? $_SESSION['old_data']['producto'] : ''); ?>"></label>
 
-            <label for="cantidad" class="mt-2">Cantidad: <input type="text" class="border border-[#000] name="cantidad" id="cantidad" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['cantidad']) ? $_SESSION['old_data']['cantidad'] : ''); ?>"></label>
+            <label for="cantidad" class="mt-2">Cantidad: <input type="text" class="border border-[#000]" name="cantidad" id="cantidad" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['cantidad']) ? $_SESSION['old_data']['cantidad'] : ''); ?>"></label>
 
-            <label for="fecha" class="mt-2">Fecha:  <input type="date" class="border border-[#000] name="fecha" id="fecha" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['fecha']) ? $_SESSION['old_data']['fecha'] : ''); ?>"></label>
+            <label for="fecha" class="mt-2">Fecha:  <input type="date" class="border border-[#000]" name="fecha" id="fecha" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['fecha']) ? $_SESSION['old_data']['fecha'] : ''); ?>"></label>
 
-            <label for="estado" class="mt-2">Estado:  <input type="text" class="border border-[#000] name="estado" id="estado" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['estado']) ? $_SESSION['old_data']['estado'] : ''); ?>"></label>
+            <label for="estado" class="mt-2">Estado:  <input type="text" class="border border-[#000]" name="estado" id="estado" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['estado']) ? $_SESSION['old_data']['estado'] : ''); ?>"></label>
 
             <input type="submit" name="submit" value="Crear Pedido" class="bg-[afa] border border-[#000] p-2 rounded-lg mb-4">
         </form>

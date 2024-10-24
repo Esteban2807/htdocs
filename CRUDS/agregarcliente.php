@@ -1,20 +1,18 @@
 <?php
-session_start(); // con esto iniciamos la sesion directamente por si al abrir la pagina quedan datos flotando
+session_start(); // Iniciar la sesión
 if (isset($_POST['submit'])) {
 
-    //el htmlspecialchars es para que no se metan caracteres especiales y  asi  cuando tengas que codificar
-    // en la base de datos no se metan caracteres especiales por si modificamos el arreglo
-    $id = htmlspecialchars(trim($_POST['id']));
+    // Evitar caracteres especiales en los datos ingresados
+    $cliente_id = htmlspecialchars(trim($_POST['cliente_id']));
     $nombre = htmlspecialchars(trim($_POST['nombre']));
     $email = htmlspecialchars(trim($_POST['email']));
     $telefono = htmlspecialchars(trim($_POST['telefono']));
     $direccion = htmlspecialchars(trim($_POST['direccion']));
 
-    // con el siguiente codigo se verifica que los datos esten puestos y no queden vacio cuando se confirme 
-    // asi evitamos directamente que que hayan espacios en blanco
+    // Validaciones de los campos
     $errors = array();
-    if (empty($id)) {
-        $errors[] = 'El ID es requerido.';
+    if (empty($cliente_id)) {
+        $errors[] = 'El Cliente_ID es requerido.';
     }
     if (empty($nombre)) {
         $errors[] = 'El nombre es requerido.';
@@ -27,25 +25,21 @@ if (isset($_POST['submit'])) {
     if (empty($telefono)) {
         $errors[] = 'EL número telefónico es requerido.';
     } elseif (!is_numeric($telefono)) {
-        $errors[] = 'La cantidad debe ser un número.';
+        $errors[] = 'El teléfono debe ser un número.';
     }
     if (empty($direccion)) {
         $errors[] = 'La dirección es requerida.';
     }
 
-    // si no hay errores se insertan los datos en la base de datos 
+    // Si no hay errores, se escribe el registro en el CSV
     if (empty($errors)) {
-        //este es el arreglo con los datos del nuevo registro
-        $record = array($id, $nombre, $email, $telefono, $direccion);
+        $record = array($cliente_id, $nombre, $email, $telefono, $direccion);
 
         // Abrir el archivo CSV en modo escritura
         if (($file = fopen('clientes.csv', 'a')) !== FALSE) {
-            // Escribir el registro en el archivo CSV
-            fputcsv($file, $record);
-            // Cerrar el archivo CSV
-            fclose($file);
-            // Redirigir al usuario a la página principal
-            header('Location: index.php');
+            fputcsv($file, $record); // Escribir el registro
+            fclose($file); // Cerrar el archivo
+            header('Location: index.php'); // Redirigir a la página principal
             exit();
         } else {
             $errors[] = 'Error al abrir el archivo CSV para escritura.';
@@ -58,15 +52,14 @@ if (isset($_POST['submit'])) {
     header('Location: agregarcliente.php'); // Redirigir de vuelta al formulario
     exit();
 } else {
-    // Establecer valores predeterminados para los campos del formulario
-    $id = '';
+    // Valores predeterminados
+    $cliente_id = '';
     $nombre = '';
     $email = '';
     $telefono = '';
     $direccion = '';
 
-    // Establecer un arreglo vacío para los errores
-    $errors = array();
+    $errors = array(); // Errores vacíos
 }
 ?>
 
@@ -79,34 +72,40 @@ if (isset($_POST['submit'])) {
     <?php include("phps/topBar.php"); ?>
     <?php include("phps/sideBar.php"); ?>
     <main class="col-span-4 row-span-3 col-start-2 row-start-2 flex flex-col justify-center items-center">
-        <h1 class="text-center font-bold text-2xl pt-2 ">Agregar Cliente</h1>
+        <h1 class="text-center font-bold text-2xl pt-2">Agregar Cliente</h1>
         <?php if (!empty($_SESSION['errors'])): ?>
             <ul>
                 <?php foreach ($_SESSION['errors'] as $error): ?>
                     <li><?php echo htmlspecialchars($error); ?></li>
                 <?php endforeach; ?>
             </ul>
-            <?php unset($_SESSION['errors']); // Limpiar errores después de mostrarlos 
-            ?>
+            <?php unset($_SESSION['errors']); // Limpiar errores después de mostrarlos ?>
         <?php endif; ?>
-        <form method="post" action="agregarcliente.php" class="mt-4 border border-gray-500 justify-center items-center w-96  flex flex-col gap-2">
-            <label for="id" class="mt-2" >ID: <input class="mt-2 inline border border-[#000]" type="text" name="id" id="id" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['id']) ? $_SESSION['old_data']['id'] : ''); ?>"></label>
-            
-            <label for="nombre" class="mt-2">Nombre: <input type="text" class="border border-[#000]" name="nombre" id="nombre" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['nombre']) ? $_SESSION['old_data']['nombre'] : ''); ?>"></label>
-            
-            <label for="email" class="mt-2">Email: <input type="email" class="border border-[#000]" name="email" id="email" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['email']) ? $_SESSION['old_data']['email'] : ''); ?>"></label>
-            
-            <label for="telefono" class="mt-2">Telefono: <input type="number" class="border border-[#000]" name="telefono" id="telefono" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['telefono']) ? $_SESSION['old_data']['telefono'] : ''); ?>"></label>
-            
-            <label for="direccion" class="mt-2">Dirección:  <input type="text" class="border border-[#000]" name="direccion" id="direccion" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['direccion']) ? $_SESSION['old_data']['direccion'] : ''); ?>"></label>
-            
-            
+        
+        <form method="post" action="agregarcliente.php" class="mt-4 border border-gray-500 justify-center items-center w-96 flex flex-col gap-2">
+            <label for="cliente_id" class="mt-2">Cliente ID: 
+                <input type="text" class="border border-[#000]" name="cliente_id" id="cliente_id" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['cliente_id']) ? $_SESSION['old_data']['cliente_id'] : ''); ?>">
+            </label>
+
+            <label for="nombre" class="mt-2">Nombre: 
+                <input type="text" class="border border-[#000]" name="nombre" id="nombre" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['nombre']) ? $_SESSION['old_data']['nombre'] : ''); ?>">
+            </label>
+
+            <label for="email" class="mt-2">Email: 
+                <input type="email" class="border border-[#000]" name="email" id="email" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['email']) ? $_SESSION['old_data']['email'] : ''); ?>">
+            </label>
+
+            <label for="telefono" class="mt-2">Telefono: 
+                <input type="number" class="border border-[#000]" name="telefono" id="telefono" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['telefono']) ? $_SESSION['old_data']['telefono'] : ''); ?>">
+            </label>
+
+            <label for="direccion" class="mt-2">Dirección:  
+                <input type="text" class="border border-[#000]" name="direccion" id="direccion" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['direccion']) ? $_SESSION['old_data']['direccion'] : ''); ?>">
+            </label>
+
             <input type="submit" name="submit" value="Agregar Cliente" class="bg-[afa] border border-[#000] p-2 rounded-lg mb-4">
         </form>
     </main>
 
     <?php include("phps/footer.php"); ?>
-                
-                        
-                
 </body>

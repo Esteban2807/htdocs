@@ -6,7 +6,7 @@ $clientes = array();
 if (($file = fopen('clientes.csv', 'r')) !== FALSE) {
     // Leer línea por línea
     while (($line = fgetcsv($file)) !== FALSE) {
-        // Almacenar cada línea como un pedido
+        // Almacenar cada línea como un cliente
         $clientes[] = $line;
     }
     fclose($file);
@@ -28,25 +28,26 @@ if (($file = fopen('clientes.csv', 'r')) !== FALSE) {
     <?php include("phps/sideBar.php"); ?>
     
     <main class="col-span-4 row-span-3 col-start-2 row-start-2">
-        <h1 class="text-center font-bold text-2xl pt-2 ">Clientes Registrados</h1>
+        <h1 class="text-center font-bold text-2xl pt-2">Clientes Registrados</h1>
         
+        <!-- Mostrar errores si los hay -->
         <?php if (!empty($_SESSION['errors'])): ?>
             <ul>
                 <?php foreach ($_SESSION['errors'] as $error): ?>
                     <li><?php echo htmlspecialchars($error); ?></li>
                 <?php endforeach; ?>
             </ul>
-            <?php unset($_SESSION['errors']); ?>
+            <?php unset($_SESSION['errors']); // Limpiar errores después de mostrarlos ?>
         <?php endif; ?>
 
-        <!-- Mostrar los pedidos en una tabla -->
+        <!-- Mostrar los clientes en una tabla -->
         <table class="mt-4 w-full border-collapse border border-[#000]">
             <thead>
                 <tr>
-                    <th class="border border-[#000] px-4 py-2">ID</th>
+                    <th class="border border-[#000] px-4 py-2">Cliente ID</th>
                     <th class="border border-[#000] px-4 py-2">Nombre</th>
                     <th class="border border-[#000] px-4 py-2">Email</th>
-                    <th class="border border-[#000] px-4 py-2">Telefono</th>
+                    <th class="border border-[#000] px-4 py-2">Teléfono</th>
                     <th class="border border-[#000] px-4 py-2">Dirección</th>
                 </tr>
             </thead>

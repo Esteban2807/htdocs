@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
             <input class="mt-2 inline border border-[#000]" type="text" name="id" id="id" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['id']) ? $_SESSION['old_data']['id'] : ''); ?>">
             
             <label for="estado" class="mt-2">Estado:</label>
-            <input type="text" class="border border-[#000] name="estado" id="estado" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['estado']) ? $_SESSION['old_data']['estado'] : ''); ?>">
+            <input type="text" class="border border-[#000]" name="estado" id="estado" value="<?php echo htmlspecialchars(isset($_SESSION['old_data']['estado']) ? $_SESSION['old_data']['estado'] : ''); ?>">
             
             <input type="submit" name="submit" value="Actualizar Estado" class="bg-[afa] border border-[#000] p-2 rounded-lg mb-4">
         </form>
